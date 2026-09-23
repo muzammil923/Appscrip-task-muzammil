@@ -28,7 +28,7 @@ const TITLE_SUFFIXES = new Set([
 ]);
 
 const BRANDS = [
-  "mettä muse",
+  "leo fashion",
   "Artisan Collective",
   "Nordwerk",
   "Atelier Loom",

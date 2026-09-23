@@ -19,8 +19,7 @@ const marcellus = Marcellus({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: "Discover Our Products | mettä muse",
+  metadataBase: new URL(SITE_URL),    title: `Discover Our Products | ${BRAND.name}`,
   description:
     "Shop handcrafted fashion, accessories and home goods from independent artisans. Premium quality, fair trade, thoughtfully made.",
   alternates: {
@@ -31,7 +30,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Discover Our Products | mettä muse",
+    title: `Discover Our Products | ${BRAND.name}`,
     description: HERO.description,
     url: "/",
     siteName: BRAND.name,
@@ -39,7 +38,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Discover Our Products | mettä muse",
+    title: `Discover Our Products | ${BRAND.name}`,
     description: HERO.description,
   },
 };

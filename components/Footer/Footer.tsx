@@ -50,7 +50,7 @@ export function Footer() {
           <div className={styles.newsletter}>
             <h2 className={styles.newsletterTitle}>BE THE FIRST TO KNOW</h2>
             <p className={styles.newsletterText}>
-              Sign up for updates from mettä muse.
+              Sign up for updates from {BRAND.name}.
             </p>
             <form className={styles.newsletterForm} onSubmit={handleSubmit} noValidate>
               <label className="visually-hidden" htmlFor="newsletter-email">
@@ -136,7 +136,7 @@ export function Footer() {
         {/* Link columns */}
         <div className={styles.linkSection}>
           <div className={styles.brandColumn}>
-            <span className={styles.brandName}>mettä muse</span>
+            <span className={styles.brandName}>{BRAND.name}</span>
             <ul className={styles.linkList}>
               {FOOTER_ABOUT_LINKS.map((link) => (
                 <li key={link}>
@@ -168,7 +168,7 @@ export function Footer() {
 
         {/* Payment badges */}
         <div className={styles.bottomSection}>
-          <span className={styles.acceptsLabel}>mettä muse ACCEPTS</span>
+          <span className={styles.acceptsLabel}>{BRAND.name.toUpperCase()} ACCEPTS</span>
           <ul className={styles.paymentList}>
             {PAYMENT_BADGES.map((badge) => (
               <li key={badge.label} className={styles.paymentBadge} aria-label={badge.label}>

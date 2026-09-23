@@ -1,13 +1,13 @@
 import type { FilterSection, SortOptionValue } from "@/types/product";
 
 export const BRAND = {
-  name: "mettä muse",
+  name: "leo fashion",
   tagline: "A premium marketplace for handcrafted goods.",
-  email: "customercare@mettamuse.com",
-  phone: "+44 221 133 5360",
+  email: "customercare@leofashion.com",
+  phone: "+91 98765 43210",
 } as const;
 
-export const SITE_URL = "https://mettamuse.example.com";
+export const SITE_URL = "https://leofashion.example.com";
 
 export const NAV_LINKS = [
   "Shop",

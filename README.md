@@ -1,6 +1,6 @@
-# Appsscrip PLP Task — mettä muse
+# Appsscrip PLP Task — leo fashion
 
-A production-ready **Product Listing Page (PLP)** for the premium handcrafted-goods marketplace **mettä muse**, built to closely reproduce the supplied reference design.
+A production-ready **Product Listing Page (PLP)** for the premium handcrafted-goods marketplace **leo fashion**, built to closely reproduce the supplied reference design.
 
 ## Overview
 
@@ -70,7 +70,7 @@ Interactive components (header panels, toolbar, sidebar, cards, footer) are Clie
 
 ## SEO
 
-- Next.js `metadata`: title `Discover Our Products | mettä muse`, description, canonical placeholder, robots, Open Graph and Twitter cards.
+- Next.js `metadata`: title `Discover Our Products | leo fashion`, description, canonical placeholder, robots, Open Graph and Twitter cards.
 - `viewport` export for correct mobile rendering.
 - Semantic HTML with a single `<h1>` (hero) and `<h2>` section headings.
 - JSON-LD: `Organization` (brand) + `ItemList` of `Product` entries with offers and availability.
