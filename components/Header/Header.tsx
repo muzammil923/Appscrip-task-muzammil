@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { CartItem, Product } from "@/types/product";
 import { LANGUAGES, NAV_LINKS, PRICE_LOCALE } from "@/lib/constants";
 import {
@@ -24,12 +24,32 @@ type HeaderProps = {
 
 type PanelKind = "menu" | "search" | "account" | "wishlist" | "cart" | null;
 
+/* Keep in sync with the longest closing animation in Header.module.css. */
+const PANEL_CLOSE_MS = 220;
+
 export function Header({ products, wishlist, cart, onToggleWishlist, onRemoveFromCart }: HeaderProps) {
   const [activePanel, setActivePanel] = useState<PanelKind>(null);
+  const [closing, setClosing] = useState(false);
   const [language, setLanguage] = useState<string>("ENG");
   const [languageOpen, setLanguageOpen] = useState(false);
+  const closeTimerRef = useRef<number | null>(null);
 
-  const closePanel = useCallback(() => setActivePanel(null), []);
+  const clearCloseTimer = useCallback(() => {
+    if (closeTimerRef.current !== null) {
+      window.clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  }, []);
+
+  const closePanel = useCallback(() => {
+    clearCloseTimer();
+    setClosing(true);
+    closeTimerRef.current = window.setTimeout(() => {
+      setActivePanel(null);
+      setClosing(false);
+      closeTimerRef.current = null;
+    }, PANEL_CLOSE_MS);
+  }, [clearCloseTimer]);
 
   useEffect(() => {
     if (activePanel === null) return;
@@ -47,7 +67,13 @@ export function Header({ products, wishlist, cart, onToggleWishlist, onRemoveFro
     };
   }, [activePanel]);
 
-  const openPanel = (panel: PanelKind) => setActivePanel(panel);
+  useEffect(() => clearCloseTimer, [clearCloseTimer]);
+
+  const openPanel = (panel: PanelKind) => {
+    clearCloseTimer();
+    setClosing(false);
+    setActivePanel(panel);
+  };
 
   const wishlistProducts = products.filter((product) => wishlist.includes(product.id));
 
@@ -57,8 +83,20 @@ export function Header({ products, wishlist, cart, onToggleWishlist, onRemoveFro
       <div className={styles.topBar}>
         <div className={`container ${styles.topBarInner}`}>
           <div className={styles.topLeft}>
-            <span className={styles.logo}>LOGO</span>
+            <a href="#" className={styles.logo}>
+              LOGO
+            </a>
           </div>
+
+          <nav className={styles.primaryNav} aria-label="Primary">
+            <ul className={styles.navList}>
+              {NAV_LINKS.map((label) => (
+                <li key={label}>
+                  <a href="#" className={styles.navLink}>{label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
           <div className={styles.topRight}>
             <button type="button" className={styles.iconButton} aria-label="Search" onClick={() => openPanel("search")}>
@@ -67,9 +105,11 @@ export function Header({ products, wishlist, cart, onToggleWishlist, onRemoveFro
             <button type="button" className={styles.iconButton} aria-label="Open wishlist" onClick={() => openPanel("wishlist")}>
               <HeartIcon />
             </button>
+            <button type="button" className={styles.iconButton} aria-label="Open shopping bag" onClick={() => openPanel("cart")}>
+              <BagIcon />
+            </button>
             <button type="button" className={styles.accountButton} aria-label="Open account" onClick={() => openPanel("account")}>
               <UserIcon />
-              <span>Account</span>
             </button>
             <div className={styles.languageWrapper}>
               <button
@@ -107,17 +147,6 @@ export function Header({ products, wishlist, cart, onToggleWishlist, onRemoveFro
         </div>
       </div>
 
-      {/* Desktop primary navigation */}
-      <nav className={styles.primaryNav} aria-label="Primary">
-        <ul className={`container ${styles.navList}`}>
-          {NAV_LINKS.map((label) => (
-            <li key={label}>
-              <a href="#" className={styles.navLink}>{label}</a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
       {/* Mobile bar */}
       <div className={styles.mobileBar}>
         <button type="button" className={styles.iconButton} aria-label="Open menu" onClick={() => openPanel("menu")}>
@@ -139,11 +168,11 @@ export function Header({ products, wishlist, cart, onToggleWishlist, onRemoveFro
 
       {/* Overlays and panels */}
       {activePanel && (
-        <div className={styles.overlay} onClick={closePanel} aria-hidden="true" />
+        <div className={`${styles.overlay} ${closing ? styles.isClosing : ""}`} onClick={closePanel} aria-hidden="true" />
       )}
 
       {activePanel === "menu" && (
-        <div className={styles.drawer} role="dialog" aria-modal="true" aria-label="Menu">
+        <div className={`${styles.drawer} ${closing ? styles.isClosing : ""}`} role="dialog" aria-modal="true" aria-label="Menu">
           <div className={styles.drawerHeader}>
             <span className={styles.drawerTitle}>Menu</span>
             <button type="button" className={styles.iconButton} aria-label="Close menu" onClick={closePanel}>
@@ -163,7 +192,7 @@ export function Header({ products, wishlist, cart, onToggleWishlist, onRemoveFro
       )}
 
       {activePanel === "search" && (
-        <div className={styles.searchModal} role="dialog" aria-modal="true" aria-label="Search">
+        <div className={`${styles.searchModal} ${closing ? styles.isClosing : ""}`} role="dialog" aria-modal="true" aria-label="Search">
           <form className={styles.searchForm} onSubmit={(event) => event.preventDefault()}>
             <SearchIcon />
             <label className="visually-hidden" htmlFor="site-search">Search products</label>
@@ -183,7 +212,7 @@ export function Header({ products, wishlist, cart, onToggleWishlist, onRemoveFro
       )}
 
       {activePanel === "account" && (
-        <div className={styles.accountModal} role="dialog" aria-modal="true" aria-label="Account">
+        <div className={`${styles.accountModal} ${closing ? styles.isClosing : ""}`} role="dialog" aria-modal="true" aria-label="Account">
           <h2 className={styles.accountModalTitle}>Sign in</h2>
           <p className={styles.accountModalText}>
             Sign in to see pricing, save your wishlist and check out faster.
@@ -200,7 +229,7 @@ export function Header({ products, wishlist, cart, onToggleWishlist, onRemoveFro
       )}
 
       {activePanel === "wishlist" && (
-        <div className={styles.drawer} role="dialog" aria-modal="true" aria-label="Wishlist">
+        <div className={`${styles.drawer} ${closing ? styles.isClosing : ""}`} role="dialog" aria-modal="true" aria-label="Wishlist">
           <div className={styles.drawerHeader}>
             <span className={styles.drawerTitle}>Wishlist</span>
             <button type="button" className={styles.iconButton} aria-label="Close wishlist" onClick={closePanel}>
@@ -231,7 +260,7 @@ export function Header({ products, wishlist, cart, onToggleWishlist, onRemoveFro
       )}
 
       {activePanel === "cart" && (
-        <div className={styles.drawer} role="dialog" aria-modal="true" aria-label="Shopping bag">
+        <div className={`${styles.drawer} ${closing ? styles.isClosing : ""}`} role="dialog" aria-modal="true" aria-label="Shopping bag">
           <div className={styles.drawerHeader}>
             <span className={styles.drawerTitle}>Shopping Bag</span>
             <button type="button" className={styles.iconButton} aria-label="Close shopping bag" onClick={closePanel}>
