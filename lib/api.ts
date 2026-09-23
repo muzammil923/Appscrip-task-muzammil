@@ -19,7 +19,13 @@ export async function getProducts(): Promise<Product[]> {
   try {
     const response = await fetch(FAKE_STORE_API_URL, {
       signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-      headers: { Accept: "application/json" },
+      // Browser-like headers: FakeStoreAPI sits behind Cloudflare bot protection
+      // and challenges requests that look like server-side clients (e.g. on Vercel).
+      headers: {
+        Accept: "application/json",
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36",
+      },
       cache: "no-store",
     });
 
