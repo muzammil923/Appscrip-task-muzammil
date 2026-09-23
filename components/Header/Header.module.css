@@ -1,0 +1,391 @@
+/* ============ Top bar ============ */
+.topBar {
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.topBarInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.topLeft {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+}
+
+.topCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topRight {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+  flex: 1;
+}
+
+/* Logo */
+.logo {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.mobileLogo {
+  font-size: 20px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ============ Utility buttons ============ */
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--color-primary);
+  transition: color var(--transition), opacity var(--transition);
+}
+
+.iconButton:hover {
+  opacity: 0.6;
+}
+
+.accountButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 600;
+  transition: opacity var(--transition);
+}
+
+.accountButton:hover {
+  opacity: 0.6;
+}
+
+.languageButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 600;
+  transition: opacity var(--transition);
+}
+
+.languageButton:hover {
+  opacity: 0.6;
+}
+
+.desktopOnly {
+  display: inline-flex;
+}
+
+/* ============ Primary navigation ============ */
+.primaryNav {
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.navList {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  height: 56px;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition);
+}
+
+.navLink:hover {
+  color: var(--color-text-secondary);
+}
+
+/* ============ Mobile ============ */
+.mobileBar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.mobileActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+@media (max-width: 1023px) {
+  .topBar,
+  .primaryNav {
+    display: none;
+  }
+
+  .mobileBar {
+    display: flex;
+  }
+}
+
+/* ============ Drawer / modal shared ============ */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: min(360px, 88vw);
+  background: var(--color-background);
+  z-index: 101;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.drawerNav {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.drawerLink {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ============ Search modal ============ */
+.searchModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-background);
+  z-index: 101;
+  padding: 32px var(--container-padding);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  padding: 12px 0;
+  font-size: 18px;
+  font-family: inherit;
+  color: var(--color-primary);
+  background: transparent;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-bottom-color: var(--color-primary);
+}
+
+.searchHint {
+  display: block;
+  max-width: 720px;
+  margin: 12px auto 0;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* ============ Wishlist / cart drawer ============ */
+.drawerTitle {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.drawerList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.drawerItem {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.drawerItemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.drawerItemTitle {
+  font-size: 14px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.drawerItemMeta {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.emptyMessage {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  padding: 16px 0;
+}
+
+/* ============ Account / language modals ============ */
+.accountModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(420px, 92vw);
+  background: var(--color-background);
+  z-index: 101;
+  padding: 48px 32px;
+  text-align: center;
+}
+
+.accountModalTitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.accountModalText {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-bottom: 24px;
+}
+
+.modalActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 24px;
+  background: var(--color-primary);
+  color: #ffffff;
+  border: 1px solid var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity var(--transition);
+}
+
+.primaryButton:hover {
+  opacity: 0.85;
+}
+
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 24px;
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color var(--transition);
+}
+
+.secondaryButton:hover {
+  border-color: var(--color-primary);
+}
+
+/* Language dropdown panel */
+.languageMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  min-width: 160px;
+  padding: 8px 0;
+  z-index: 102;
+}
+
+.languageOption {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.languageOption:hover {
+  background: var(--color-border-light);
+}
+
+.languageWrapper {
+  position: relative;
+}

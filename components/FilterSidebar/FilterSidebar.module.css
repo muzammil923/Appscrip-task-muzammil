@@ -1,0 +1,174 @@
+/* ============ Desktop sidebar ============ */
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+.sidebar[data-hidden="true"] {
+  display: none;
+}
+
+.sidebarContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.section {
+  border-bottom: 1px solid var(--color-border-light);
+  padding: 16px 0;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0 0 4px;
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.sectionHeader:hover {
+  color: var(--color-text-secondary);
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.sectionChevron {
+  display: inline-flex;
+  transition: transform var(--transition);
+}
+
+.sectionChevron[data-open="true"] {
+  transform: rotate(180deg);
+}
+
+.sectionValue {
+  display: block;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.sectionHint {
+  margin: 12px 0 4px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+/* Restore button when sidebar hidden */
+.restoreButton {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 1px solid var(--color-border);
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: border-color var(--transition);
+}
+
+.restoreButton:hover {
+  border-color: var(--color-primary);
+}
+
+/* ============ Mobile trigger + drawer ============ */
+.mobileTriggerRow {
+  display: none;
+}
+
+.mobileTrigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 1px solid var(--color-border);
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: border-color var(--transition);
+}
+
+.mobileTrigger:hover {
+  border-color: var(--color-primary);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
+.mobileDrawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: min(360px, 88vw);
+  background: var(--color-background);
+  z-index: 101;
+  overflow-y: auto;
+}
+
+.mobileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid var(--color-border-light);
+  margin-bottom: 8px;
+}
+
+.mobileTitle {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--color-primary);
+  transition: opacity var(--transition);
+}
+
+.iconButton:hover {
+  opacity: 0.6;
+}
+
+.mobileContent {
+  padding: 0 24px 48px;
+}
+
+@media (max-width: 1023px) {
+  .sidebar {
+    display: none;
+  }
+
+  .mobileTriggerRow {
+    display: flex;
+    margin-bottom: 24px;
+  }
+}

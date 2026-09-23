@@ -1,0 +1,18 @@
+.listingLayout {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+  padding-top: 32px;
+}
+
+.listingLayout > aside {
+  position: sticky;
+  top: 32px;
+}
+
+@media (max-width: 1023px) {
+  .listingLayout {
+    display: block;
+    padding-top: 24px;
+  }
+}
