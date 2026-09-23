@@ -462,25 +462,28 @@
     transform: rotate(180deg);
   }
 
-  /* Subtle expand/collapse via grid rows — no big dropdowns. */
+  /* Panel wrapper stays mounted (aria-controls target); links mount on open. */
   .mobilePanel {
-    display: grid;
-    grid-template-rows: 0fr;
     overflow: hidden;
-    transition: grid-template-rows var(--transition);
-  }
-
-  .mobilePanelOpen {
-    grid-template-rows: 1fr;
   }
 
   .mobileLinkList {
-    min-height: 0;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 14px;
-    padding: 0 0 18px;
+    padding: 2px 0 18px;
+    animation: mobilePanelReveal var(--transition) ease-out;
+  }
+
+  @keyframes mobilePanelReveal {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .mobileLink {
@@ -587,7 +590,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mobilePanel,
+  .mobileLinkList {
+    animation: none;
+  }
+
   .mobileChevron {
     transition: none;
   }

@@ -52,7 +52,7 @@ const MOBILE_SECTIONS: Array<{
   title: string;
   links: readonly string[];
 }> = [
-  { key: "brand", title: "mettä muse", links: FOOTER_ABOUT_LINKS },
+  { key: "brand", title: "Leo Fashion", links: FOOTER_ABOUT_LINKS },
   { key: "quickLinks", title: "QUICK LINKS", links: FOOTER_QUICK_LINKS },
   {
     key: "followUs",
@@ -61,25 +61,97 @@ const MOBILE_SECTIONS: Array<{
   },
 ];
 
-/** Small circular US flag (emoji flags do not render on every platform). */
-function USFlagIcon() {
+/**
+ * Small circular currency flag matching the selected currency
+ * (emoji flags do not render on every platform).
+ */
+function CurrencyFlagIcon({ code }: { code: string }) {
+  const clipId = "footer-currency-flag-clip";
+  const circle = (
+    <clipPath id={clipId}>
+      <circle cx="9" cy="9" r="9" />
+    </clipPath>
+  );
+
+  let flag: React.ReactNode;
+  switch (code) {
+    case "INR":
+      flag = (
+        <g clipPath={`url(#${clipId})`}>
+          <rect width="18" height="6" fill="#ff9933" />
+          <rect y="6" width="18" height="6" fill="#ffffff" />
+          <rect y="12" width="18" height="6" fill="#138808" />
+          <circle cx="9" cy="9" r="2" fill="none" stroke="#000080" strokeWidth="0.8" />
+          <circle cx="9" cy="9" r="0.5" fill="#000080" />
+        </g>
+      );
+      break;
+    case "EUR":
+      flag = (
+        <g clipPath={`url(#${clipId})`}>
+          <rect width="18" height="18" fill="#003399" />
+          <g fill="#ffcc00">
+            <circle cx="13.5" cy="9" r="0.9" />
+            <circle cx="12.9" cy="11.25" r="0.9" />
+            <circle cx="11.25" cy="12.9" r="0.9" />
+            <circle cx="9" cy="13.5" r="0.9" />
+            <circle cx="6.75" cy="12.9" r="0.9" />
+            <circle cx="5.1" cy="11.25" r="0.9" />
+            <circle cx="4.5" cy="9" r="0.9" />
+            <circle cx="5.1" cy="6.75" r="0.9" />
+            <circle cx="6.75" cy="5.1" r="0.9" />
+            <circle cx="9" cy="4.5" r="0.9" />
+            <circle cx="11.25" cy="5.1" r="0.9" />
+            <circle cx="12.9" cy="6.75" r="0.9" />
+          </g>
+        </g>
+      );
+      break;
+    case "GBP":
+      flag = (
+        <g clipPath={`url(#${clipId})`}>
+          <rect width="18" height="18" fill="#012169" />
+          <g stroke="#ffffff" strokeWidth="3.6">
+            <line x1="0" y1="0" x2="18" y2="18" />
+            <line x1="18" y1="0" x2="0" y2="18" />
+          </g>
+          <g stroke="#c8102e" strokeWidth="1.2">
+            <line x1="0" y1="0" x2="18" y2="18" />
+            <line x1="18" y1="0" x2="0" y2="18" />
+          </g>
+          <rect x="6.75" width="4.5" height="18" fill="#ffffff" />
+          <rect y="6.75" width="18" height="4.5" fill="#ffffff" />
+          <rect x="7.875" width="2.25" height="18" fill="#c8102e" />
+          <rect y="7.875" width="18" height="2.25" fill="#c8102e" />
+        </g>
+      );
+      break;
+    case "USD":
+      flag = (
+        <g clipPath={`url(#${clipId})`}>
+          <rect width="18" height="18" fill="#ffffff" />
+          <g fill="#b22234">
+            <rect y="0" width="18" height="1.6" />
+            <rect y="3.2" width="18" height="1.6" />
+            <rect y="6.4" width="18" height="1.6" />
+            <rect y="9.6" width="18" height="1.6" />
+            <rect y="12.8" width="18" height="1.6" />
+            <rect y="16" width="18" height="1.6" />
+          </g>
+          <rect width="8" height="6.4" fill="#3c3b6e" />
+        </g>
+      );
+      break;
+    default:
+      flag = <g clipPath={`url(#${clipId})`}>
+        <rect width="18" height="18" fill="#555555" />
+      </g>;
+  }
+
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
-      <clipPath id="footer-us-flag-circle">
-        <circle cx="9" cy="9" r="9" />
-      </clipPath>
-      <g clipPath="url(#footer-us-flag-circle)">
-        <rect width="18" height="18" fill="#ffffff" />
-        <g fill="#b22234">
-          <rect y="0" width="18" height="1.6" />
-          <rect y="3.2" width="18" height="1.6" />
-          <rect y="6.4" width="18" height="1.6" />
-          <rect y="9.6" width="18" height="1.6" />
-          <rect y="12.8" width="18" height="1.6" />
-          <rect y="16" width="18" height="1.6" />
-        </g>
-        <rect width="8" height="6.4" fill="#3c3b6e" />
-      </g>
+      {circle}
+      {flag}
     </svg>
   );
 }
@@ -326,7 +398,7 @@ export function Footer() {
                 aria-expanded={currencyOpen}
                 onClick={() => setCurrencyOpen((open) => !open)}
               >
-                <USFlagIcon />
+                <CurrencyFlagIcon code={currency} />
                 <span aria-hidden="true">•</span>
                 <span className="visually-hidden">Selected currency: </span>
                 {currency}
@@ -388,25 +460,28 @@ export function Footer() {
                       }
                     />
                   </button>
+                  {/*
+                    Wrapper stays mounted so aria-controls always resolves,
+                    but links render only while open — nothing can leak out
+                    of a collapsed accordion in any browser.
+                  */}
                   <div
                     id={`mobile-footer-panel-${section.key}`}
-                    className={
-                      isOpen
-                        ? `${styles.mobilePanel} ${styles.mobilePanelOpen}`
-                        : styles.mobilePanel
-                    }
+                    className={styles.mobilePanel}
                     role="region"
-                    aria-hidden={!isOpen}
+                    aria-label={section.title}
                   >
-                    <ul className={styles.mobileLinkList}>
-                      {section.links.map((link) => (
-                        <li key={link}>
-                          <a href="#" className={styles.mobileLink} tabIndex={isOpen ? 0 : -1}>
-                            {link}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
+                    {isOpen && (
+                      <ul className={styles.mobileLinkList}>
+                        {section.links.map((link) => (
+                          <li key={link}>
+                            <a href="#" className={styles.mobileLink}>
+                              {link}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 </li>
               );
@@ -416,7 +491,7 @@ export function Footer() {
           {/* 6. Payment methods */}
           <section className={styles.mobilePayments} aria-labelledby="mobile-accepts-title">
             <h2 id="mobile-accepts-title" className={styles.mobileAcceptsLabel}>
-              mettä muse <span className={styles.mobileAcceptsMuted}>ACCEPTS</span>
+              Leo Fashion <span className={styles.mobileAcceptsMuted}>ACCEPTS</span>
             </h2>
             <ul className={styles.mobilePaymentList}>
               {MOBILE_PAYMENT_BADGES.map((badge) => (
@@ -446,7 +521,7 @@ export function Footer() {
 
           {/* 7. Copyright */}
           <p className={styles.mobileCopyright}>
-            Copyright © 2023 mettamuse. All rights reserved.
+            Copyright © 2023 leofashion. All rights reserved.
           </p>
         </div>
       </div>
