@@ -1,12 +1,15 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* minmax(0, 1fr) prevents long card content from expanding a track and
+     collapsing the row to a single visible card on narrow screens. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 48px 32px;
 }
 
 .cell {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .empty {
@@ -27,7 +30,7 @@
 
 @media (max-width: 1023px) {
   .grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 32px 24px;
   }
 }
