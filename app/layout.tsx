@@ -21,7 +21,7 @@ const marcellus = Marcellus({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),    title: `Discover Our Products | ${BRAND.name}`,
   description:
-    "Shop handcrafted fashion, accessories and home goods from independent artisans. Premium quality, fair trade, thoughtfully made.",
+    "Shop handcrafted fashion, accessories and home goods from India's finest artisans. Premium quality, fair trade, thoughtfully made and delivered across India.",
   alternates: {
     canonical: "/",
   },
@@ -47,12 +47,11 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${figtree.variable} ${marcellus.variable}`}>
+    <html lang="en-IN" className={`${figtree.variable} ${marcellus.variable}`}>
       <body>{children}</body>
     </html>
   );

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import type { CartItem, Product } from "@/types/product";
-import { LANGUAGES, NAV_LINKS } from "@/lib/constants";
+import { LANGUAGES, NAV_LINKS, PRICE_LOCALE } from "@/lib/constants";
 import {
   BagIcon,
   ChevronDownIcon,
@@ -247,7 +247,7 @@ export function Header({ products, wishlist, cart, onToggleWishlist, onRemoveFro
                   <div className={styles.drawerItemInfo}>
                     <span className={styles.drawerItemTitle}>{item.title}</span>
                     <span className={styles.drawerItemMeta}>
-                      {item.quantity} × ${item.price.toFixed(2)}
+                      {item.quantity} × ₹{item.price.toLocaleString(PRICE_LOCALE)}
                     </span>
                   </div>
                   <button

@@ -17,7 +17,13 @@ export const NAV_LINKS = [
   "Contact Us",
 ] as const;
 
-export const CURRENCIES = ["USD", "EUR", "GBP", "INR"] as const;
+export const CURRENCIES = ["INR", "USD", "EUR", "GBP"] as const;
+
+/** Default display currency for the Indian storefront. */
+export const DEFAULT_CURRENCY = "INR";
+
+/** ISO locale used for price formatting. */
+export const PRICE_LOCALE = "en-IN";
 
 export const LANGUAGES = ["ENG", "FRA", "DEU"] as const;
 
@@ -39,7 +45,6 @@ export const FOOTER_QUICK_LINKS = [
   "Privacy Policy",
   "Terms & Conditions",
 ] as const;
-
 export const SORT_OPTIONS: SortOptionValue[] = [
   { label: "Recommended", value: "recommended" },
   { label: "Price: Low to High", value: "price-asc" },

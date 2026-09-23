@@ -14,7 +14,7 @@ The page implements the full reference layout — header with centered navigatio
 - **Mobile drawer filters** — below 1024px the sidebar becomes an overlay drawer with FILTER/CLOSE header.
 - **Header interactions** — search modal, wishlist drawer, account modal, language dropdown, functional mobile menu.
 - **Wishlist & cart state** — toggled with local React state; drawers list current items.
-- **Footer** — newsletter signup with e-mail validation and success/error states, contact block, currency dropdown, quick links, and payment badges with accessible labels.
+- **Footer** — newsletter signup with e-mail validation and success/error states, contact block, INR currency dropdown (Indian Rupees default), quick links, and payment badges (UPI, RuPay, COD, cards) with accessible labels.
 - **States** — route-level loading spinner, error boundary with retry, and an empty-grid state.
 
 ## Tech Stack
@@ -124,3 +124,12 @@ TypeScript and ESLint checks run as part of the build.
 ## Assignment Notes
 
 This implementation uses **Next.js (App Router)**, **TypeScript**, **plain CSS Modules** (no CSS frameworks), **server-side rendering** for the product data, **responsive design** across mobile/tablet/desktop, and **FakeStoreAPI** with a deterministic local fallback — with minimal dependencies (only `next`, `react`, `react-dom`).
+
+## India Localization
+
+- **Brand**: leo fashion, with `customercare@leofashion.com` and Indian phone `+91 98765 43210`.
+- **Currency**: prices render in **INR (₹)** using the `en-IN` locale; the footer currency dropdown defaults to INR and billing is stated in Indian Rupees.
+- **Catalogue**: deterministic API pricing is converted to whole-rupee INR; the fallback catalogue features Indian crafts (Khadi, Banarasi silk, Kalamkari, Meenakari, Channapatna, Khurja blue pottery).
+- **Payments**: UPI, RuPay and Cash on Delivery badges alongside international cards.
+- **SEO**: `lang="en-IN"`, India-served JSON-LD (`areaServed: "IN"`, INR offers, IN address).
+- **Copy**: all page copy is in English — no placeholder Lorem ipsum.

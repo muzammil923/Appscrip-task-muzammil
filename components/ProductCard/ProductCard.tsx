@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import type { Product } from "@/types/product";
+import { PRICE_LOCALE } from "@/lib/constants";
 import { HeartIcon } from "@/components/Icons";
 import styles from "./ProductCard.module.css";
 
@@ -13,6 +14,11 @@ type ProductCardProps = {
 
 export function ProductCard({ product, isFavorite, onToggleWishlist }: ProductCardProps) {
   const detail = `${product.fabric} · ${product.occasion} · ${product.segment}`;
+  const formattedPrice = new Intl.NumberFormat(PRICE_LOCALE, {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(product.price);
 
   return (
     <article className={styles.card}>
@@ -47,7 +53,9 @@ export function ProductCard({ product, isFavorite, onToggleWishlist }: ProductCa
             <HeartIcon filled={isFavorite} width={18} height={18} />
           </button>
         </div>
-        <p className={styles.pricing}>Sign in or Create an account to see pricing</p>
+        <p className={styles.pricing}>
+          Sign in or create an account to see the price of {formattedPrice}
+        </p>
         <p className={styles.meta}>{detail}</p>
       </div>
     </article>

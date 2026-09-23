@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   BRAND,
   CURRENCIES,
+  DEFAULT_CURRENCY,
   FOOTER_ABOUT_LINKS,
   FOOTER_QUICK_LINKS,
 } from "@/lib/constants";
@@ -19,17 +20,19 @@ type PaymentBadge = {
 
 const PAYMENT_BADGES: PaymentBadge[] = [
   { label: "Google Pay", text: "G Pay" },
-  { label: "Mastercard", text: "MC" },
+  { label: "UPI", text: "UPI" },
+  { label: "RuPay", text: "RuPay" },
   { label: "PayPal", text: "PayPal" },
   { label: "American Express", text: "AMEX" },
-  { label: "Apple Pay", text: "Pay" },
-  { label: "O Pay", text: "O Pay" },
+  { label: "Mastercard", text: "MC" },
+  { label: "Visa", text: "VISA" },
+  { label: "Cash on Delivery", text: "COD" },
 ];
 
 export function Footer() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "error" | "success">("idle");
-  const [currency, setCurrency] = useState<string>("USD");
+  const [currency, setCurrency] = useState<string>(DEFAULT_CURRENCY);
   const [currencyOpen, setCurrencyOpen] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -125,7 +128,7 @@ export function Footer() {
                 )}
               </div>
               <p className={styles.currencyNote}>
-                Transactions and billing occur in USD unless stated otherwise.
+                Transactions and billing occur in {DEFAULT_CURRENCY} (Indian Rupees) unless stated otherwise.
               </p>
             </div>
           </div>

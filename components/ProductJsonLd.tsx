@@ -16,11 +16,12 @@ export function ProductJsonLd({ products }: { products: Product[] }) {
         name: product.title,
         image: product.image,
         category: product.category,
-        description: `${product.title} — handcrafted goods available at ${BRAND.name}.`,
+        description: `${product.title} — handcrafted goods available at ${BRAND.name}, India.`,
         offers: {
           "@type": "Offer",
           price: product.price.toFixed(2),
-          priceCurrency: "USD",
+          priceCurrency: "INR",
+          areaServed: "IN",
           availability: product.isOutOfStock
             ? "https://schema.org/OutOfStock"
             : "https://schema.org/InStock",

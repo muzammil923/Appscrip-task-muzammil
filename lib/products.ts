@@ -41,7 +41,15 @@ const SEGMENTS = ["Men", "Women", "Unisex"] as const;
 const RAW_MATERIALS = ["Cotton", "Leather", "Brass", "Wool", "Jute"] as const;
 const PATTERNS = ["Solid", "Striped", "Woven", "Textured"] as const;
 const WORKS = ["Handloom", "Hand Stitched", "Machine Crafted", "Embroidered"] as const;
-const SUITABLE_FOR = ["Daily Use", "Formal Wear", "Gifting", "Travel"] as const;
+const SUITABLE_FOR = ["Daily Use", "Festive Wear", "Gifting", "Travel"] as const;
+
+/** Fixed presentation rate used to express USD catalogue prices in INR. */
+const USD_TO_INR_RATE = 83;
+
+/** Convert a USD catalogue price to a whole-rupee INR price. */
+export function convertToINR(usdPrice: number): number {
+  return Math.round(usdPrice * USD_TO_INR_RATE);
+}
 
 /** Deterministic pick from a list based on the product id. */
 function pick<T>(list: readonly T[], id: number): T {
@@ -92,7 +100,7 @@ export function decorateProduct(raw: {
     title: truncateTitle(`${brand} ${cleanedTitle}`, 8),
     image: raw.image,
     category: raw.category,
-    price: raw.price,
+    price: convertToINR(raw.price),
     rating: raw.rating?.rate,
     ratingCount: raw.rating?.count,
     isNew: id % 7 === 1,

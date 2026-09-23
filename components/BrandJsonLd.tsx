@@ -9,6 +9,11 @@ export function BrandJsonLd() {
     url: SITE_URL,
     email: BRAND.email,
     telephone: BRAND.phone,
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "IN",
+    },
+    areaServed: "IN",
   };
 
   return (
