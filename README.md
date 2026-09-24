@@ -1,4 +1,4 @@
-# Appsscrip PLP Task — leo fashion
+# Appsscrip PLP Task — Leo fashion
 
 A production-ready **Product Listing Page (PLP)** for the premium handcrafted-goods marketplace **leo fashion**, built to closely reproduce the supplied reference design.
 

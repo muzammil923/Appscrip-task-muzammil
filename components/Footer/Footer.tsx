@@ -491,7 +491,7 @@ export function Footer() {
           {/* 6. Payment methods */}
           <section className={styles.mobilePayments} aria-labelledby="mobile-accepts-title">
             <h2 id="mobile-accepts-title" className={styles.mobileAcceptsLabel}>
-              Leo Fashion <span className={styles.mobileAcceptsMuted}>ACCEPTS</span>
+              Leo fashion <span className={styles.mobileAcceptsMuted}>ACCEPTS</span>
             </h2>
             <ul className={styles.mobilePaymentList}>
               {MOBILE_PAYMENT_BADGES.map((badge) => (
